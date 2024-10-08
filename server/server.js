@@ -41,6 +41,10 @@ app.use(
   })
 );
 
+app.get("/", (res, res) => {
+  res.json("Hello")
+})
+
 app.use(cookieParser());
 app.use(express.json());
 app.use("/api/auth", authRouter);
