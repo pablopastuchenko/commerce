@@ -14,6 +14,13 @@ const registerUser = async (req, res) => {
         message: "User Already exists with the same email! Please try again",
       });
 
+      const checkUserByName = await User.findOne({ userName });
+    if (checkUserByName)
+      return res.json({
+        success: false,
+        message: "User Already exists with the same userName! Please try again",
+      });
+
     const hashPassword = await bcrypt.hash(password, 12);
     const newUser = new User({
       userName,
@@ -106,7 +113,7 @@ const authMiddleware = async (req, res, next) => {
     });
 
   try {
-    const decoded = jwt.verify(token, "CLIENT_SECRET_KEY");
+    const decoded = jwt.verify(token, "teste");
     req.user = decoded;
     next();
   } catch (error) {
